@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <!-- Task-list order buttons -->
     <div class="box">
     <h2 class="app-title title is-3">{{listTitle}}</h2>
@@ -60,7 +59,7 @@
           </section>
           </div>
           <div class="column">
-            <span class="tag is-medium">{{ task.priority }}</span>
+            <span class="tag is-medium">{{ task.priority.name }}</span>
           </div>
           <div class="column is-warning">
             <span class="far fa-times-circle" @click="removeTask(task)"></span>
@@ -72,6 +71,9 @@
 </template>
 
 <script>
+/* eslint-disable */
+import axios from 'axios'
+
 export default {
   // We are not actually managing the task list in this component.
   // We are only displaying the list. The parent component (App.vue) is

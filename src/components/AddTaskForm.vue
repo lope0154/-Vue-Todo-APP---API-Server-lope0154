@@ -13,9 +13,9 @@
           <label>Priority
             <label class="select dropdown-trigger">
             <select v-model="newTask.priority" class="button">
-              <option value="high">high</option>
-              <option value="medium">medium</option>
-              <option value="low">low</option>
+              <option value="1">high</option>
+              <option value="2">medium</option>
+              <option value="3">low</option>
             </select>
             </label>
           </label>
@@ -24,10 +24,10 @@
           <label>Category
             <label class="select dropdown-trigger">
             <select v-model="newTask.category" class="button">
-              <option value=" "> </option>
-              <option value="home">home</option>
-              <option value="school">school</option>
-              <option value="work">work</option>
+              <option value="0"> </option>
+              <option value="1">home</option>
+              <option value="2">school</option>
+              <option value="3">work</option>
             </select>
             </label>
           </label>

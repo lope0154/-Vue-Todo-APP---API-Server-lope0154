@@ -32,6 +32,10 @@
 </template>
 
 <script>
+/* eslint-disable */
+import moment from 'moment'
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -68,8 +72,32 @@ export default {
   })
     .catch(error => this.handleError(error))
     .finally(() => { this.isWorking = false })
-}
-
+    },
+    handleError (error) {
+     if (error.response) {
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx
+    switch (error.response.status) {
+      case 400: {
+        this.errorMessage = 'Both login name and password are required.'
+        break
+      }
+      case 401: {
+        this.errorMessage = 'Incorrect username or password'
+        break
+      }
+      default: 
+        this.errorMessage = 'Sorry. There was an error processing your request.'
+    }
+  } else if (error.request) {
+    // The request was made but no response was received
+    console.log(error.request)
+  } else {
+    // Something happened in setting up the request that triggered an Error
+    console.log('Error', error.message)
+  }
+  console.log(error.config)
+} 
   }
 }
 </script>
