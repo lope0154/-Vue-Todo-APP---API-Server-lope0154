@@ -3,6 +3,7 @@
     <div v-if="isLoggedIn">
     <div class="hero is-success">
       <div class="is-fullwidth">
+        <button @click="logout" class="button is-normal is-dark">LOGOUT</button>
         <h1 class="app-title title is-1">Vue Todos</h1>
         <span class="app-title subtitle is-5">{{moment(new Date()).format('MM/DD/YYYY')}}</span>
       </div>
@@ -66,12 +67,14 @@ export default {
   },
   created () {
     axios
-      .get(`${this.baseURL}/priorities`)      .then(response => {
+      .get(`${this.baseURL}/priorities`)
+      .then(response => {
         this.priorityOptions = response.data.data.length 
           ? response.data.data
           : []
       })
       .catch(error => { console.error(error) })
+      this.loadInitialData()
   },
   methods: {
     refreshTasks () {
@@ -116,9 +119,13 @@ export default {
     this.api.accessToken = apiTokens.access_token
     this.api.expiresAt = apiTokens.expires_at
     if (this.isLoggedIn) this.refreshTasks()
+    }
+  },
+    logout () {
+  this.api.accessToken = null
+  this.api.expiresAt = null
+  localStorage.removeItem('todoApiTokens')
   }
-}
-
   },
   computed: {
     isLoggedIn () {
@@ -161,5 +168,8 @@ section {
 .app-title {
 margin-top: 0.75rem;
 margin-left: 0.75rem;
+}
+.is-dark {
+  float: right;
 }
 </style>
